@@ -1,0 +1,13 @@
+# Fisiere generate de .NET
+bin/
+obj/
+
+# Fisiere si setari locale
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Fisiere temporare
+*.log
+*.tmp
