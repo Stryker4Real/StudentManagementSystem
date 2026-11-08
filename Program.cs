@@ -7,10 +7,10 @@ List<Student> studenti = new List<Student>();
 while (optiune != 0)
 {
     Console.WriteLine("\n=== CATALOG STUDENTI ===");
-    Console.WriteLine("1. Adauga student\n2. Afiseaza toti studentii\n3. Afiseaza studentii promovati\n4. Calculeaza media generala\n5. Cauta student dupa nume\n6. Afiseaza studentul cu cea mai mare nota\n7. Afiseaza studentul cu cea mai mica nota\n8. Modifica nota unui student\n0. Iesire");
+    Console.WriteLine("1. Adauga student\n2. Afiseaza toti studentii\n3. Afiseaza studentii promovati\n4. Calculeaza media generala\n5. Cauta student dupa nume\n6. Afiseaza studentul cu cea mai mare nota\n7. Afiseaza studentul cu cea mai mica nota\n8. Modifica nota unui student\n9. Sterge un student din lista\n0. Iesire");
     Console.Write("Alege o optiune: ");
     bool optiuneValida = int.TryParse(Console.ReadLine(), out int optiuneCitita);
-    if (!optiuneValida || optiuneCitita > 8 || optiuneCitita < 0)
+    if (!optiuneValida || optiuneCitita > 9 || optiuneCitita < 0)
     {
         Console.WriteLine("Optiune invalida!");
         continue;
@@ -66,7 +66,7 @@ while (optiune != 0)
             }
             else
             {
-                Console.WriteLine("\nNu exista niciun student introdus in lista!");
+                Console.WriteLine("\nNu exista studenti in lista");
             }
             break;
         case 7:
@@ -78,12 +78,12 @@ while (optiune != 0)
             }
             else
             {
-                Console.WriteLine("\nNu exista niciun student introdus in lista!");
+                Console.WriteLine("\nNu exista studenti in lista");
             }
             break;
         case 8:
             if(studenti.Count == 0){
-                Console.WriteLine("\nNu exista niciun student introdus in lista!");
+                Console.WriteLine("\nNu exista studenti in lista");
             }
             else{
                 Console.WriteLine("\nIntrodu numele studentului: ");
@@ -107,6 +107,42 @@ while (optiune != 0)
                         {
                             Console.WriteLine("Nota invalida!");
                         }
+                }
+            }
+            break;
+        case 9:
+            if (studenti.Count == 0)
+            {
+                Console.WriteLine("\nNu exista studenti in lista");
+            }
+            else
+            {
+                Console.WriteLine("\nIntrodu numele studentului pe care doresti sa il stergi: ");
+                var numeStudentCautat = Console.ReadLine();
+                Student? studentGasit = studenti.FirstOrDefault(s => s.Nume == numeStudentCautat);
+                if(studentGasit == null)
+                {
+                    Console.WriteLine("\nNu exista un student cu acest nume!");
+                }
+                else
+                {
+                    Console.WriteLine("\nAm identificat studentul " + numeStudentCautat);
+                    Console.WriteLine("Acesta are varsta " + studentGasit.Varsta + " si nota: " + studentGasit.ObtineNota());
+                    Console.WriteLine("\n! IMPORTANT ! Doriti stergerea studentului din lista? (da/nu)");
+                    var stergereStudent = Console.ReadLine();
+                    if (stergereStudent != null)
+                    {
+                    stergereStudent = stergereStudent.ToLower();
+                    }
+                    if(stergereStudent == "da")
+                    {
+                        studenti.Remove(studentGasit);
+                        Console.WriteLine("\nStergerea a fost efectuata cu succes!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nStergerea studentului NU a fost efectuata!");
+                    }
                 }
             }
             break;
