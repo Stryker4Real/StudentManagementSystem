@@ -7,10 +7,10 @@ List<Student> studenti = new List<Student>();
 while (optiune != 0)
 {
     Console.WriteLine("\n=== CATALOG STUDENTI ===");
-    Console.WriteLine("1. Adauga student\n2. Afiseaza toti studentii\n3. Afiseaza studentii promovati\n4. Calculeaza media generala\n5. Cauta student dupa nume\n6. Afiseaza studentul cu cea mai mare nota\n7. Afiseaza studentul cu cea mai mica nota\n0. Iesire");
+    Console.WriteLine("1. Adauga student\n2. Afiseaza toti studentii\n3. Afiseaza studentii promovati\n4. Calculeaza media generala\n5. Cauta student dupa nume\n6. Afiseaza studentul cu cea mai mare nota\n7. Afiseaza studentul cu cea mai mica nota\n8. Modifica nota unui student\n0. Iesire");
     Console.Write("Alege o optiune: ");
     bool optiuneValida = int.TryParse(Console.ReadLine(), out int optiuneCitita);
-    if (!optiuneValida || optiuneCitita > 7 || optiuneCitita < 0)
+    if (!optiuneValida || optiuneCitita > 8 || optiuneCitita < 0)
     {
         Console.WriteLine("Optiune invalida!");
         continue;
@@ -79,6 +79,35 @@ while (optiune != 0)
             else
             {
                 Console.WriteLine("\nNu exista niciun student introdus in lista!");
+            }
+            break;
+        case 8:
+            if(studenti.Count == 0){
+                Console.WriteLine("\nNu exista niciun student introdus in lista!");
+            }
+            else{
+                Console.WriteLine("\nIntrodu numele studentului: ");
+                var numeStudentCautat = Console.ReadLine();
+                Student? studentGasit = studenti.FirstOrDefault(s => s.Nume == numeStudentCautat);
+                if (studentGasit == null)
+                {
+                    Console.WriteLine("Nu exista niciun student cu acest nume!");
+                }
+                else
+                {
+                    Console.WriteLine("Am identificat studentul: " + numeStudentCautat + ", nota acestuia este: " + studentGasit.ObtineNota());
+                    Console.WriteLine("Introdu noua nota a acestuia: ");
+                    var notaValida = double.TryParse(Console.ReadLine(), out double notaModificata);
+                        if (notaValida && notaModificata >= 1 && notaModificata <= 10)
+                        {
+                            studentGasit.SeteazaNota(notaModificata);
+                            Console.WriteLine("Nota studentului " + studentGasit.Nume + " a fost modificata!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nota invalida!");
+                        }
+                }
             }
             break;
         case 0:
